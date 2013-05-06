@@ -11,6 +11,7 @@ namespace dokas.EncodingConverter
     {
         private readonly int _itemsTableDefaultHeight;
         private readonly FileManager _fileManager;
+        private readonly EncodingManager _encodingManager;
 
         public MainForm()
         {
@@ -18,12 +19,14 @@ namespace dokas.EncodingConverter
 
             _itemsTableDefaultHeight = _itemsTable.Height;
 
+            _encodingsComboBox.DataSource = EncodingManager.Encodings;
+            _encodingsComboBox.SelectedItem = Encoding.UTF8;
+
             _fileManager = new FileManager(
                 sourcePath: new TextBoxWrapper(_sourceFolderPath),
                 destinationPath: new TextBoxWrapper(_destinationFolderPath));
 
-            _encodingsComboBox.DataSource = EncodingManager.Encodings;
-            _encodingsComboBox.SelectedItem = Encoding.UTF8;
+            _encodingManager = new EncodingManager(_fileManager);
         }
 
         private async void _openSourceFolderDialog_Click(object sender, EventArgs e)
@@ -47,8 +50,8 @@ namespace dokas.EncodingConverter
                 var to = (Encoding)_encodingsComboBox.SelectedItem;
                 foreach (var filePath in _fileManager.GetFilePaths())
                 {
-                    var from = await EncodingManager.Resolve(filePath);
-                    var control = new FileItemControl { Dock = DockStyle.Fill };
+                    var from = await _encodingManager.Resolve(filePath);
+                    var control = new FileItemControl(_encodingManager) { Dock = DockStyle.Fill };
                     control.LoadData(filePath, from, to);
                     _itemsTable.SuspendLayout();
                     _itemsTable.Controls.Add(control, 1, i++);

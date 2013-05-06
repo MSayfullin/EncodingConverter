@@ -17,12 +17,15 @@ namespace dokas.EncodingConverter
         private string _filePath;
         private Encoding _encodingFrom;
         private Encoding _encodingTo;
+        private readonly EncodingManager _encodingManager;
 
-        public FileItemControl()
+        public FileItemControl(EncodingManager encodingManager)
         {
             InitializeComponent();
 
             _excludeButton.Text = Exclude;
+
+            _encodingManager = encodingManager;
         }
 
         public void LoadData(string filePath, Encoding from, Encoding to)
@@ -38,7 +41,7 @@ namespace dokas.EncodingConverter
 
         private void _convertButton_Click(object sender, EventArgs e)
         {
-            EncodingManager.Convert(_filePath, _encodingFrom, _encodingTo);
+            _encodingManager.Convert(_filePath, _encodingFrom, _encodingTo);
             this.Enabled = false;
         }
 

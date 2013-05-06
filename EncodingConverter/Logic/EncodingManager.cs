@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +7,16 @@ using Mozilla.CharDet;
 
 namespace dokas.EncodingConverter.Logic
 {
-    internal static class EncodingManager
+    internal sealed class EncodingManager
     {
+        private readonly FileManager _fileManager;
         private static readonly IEnumerable<Encoding> _encodings;
+        private static readonly UniversalDetector _detector;
 
         static EncodingManager()
         {
             _encodings = Encoding.GetEncodings().Select(e => e.GetEncoding()).ToArray();
+            _detector = new UniversalDetector();
         }
 
         public static IEnumerable<Encoding> Encodings
@@ -22,18 +24,27 @@ namespace dokas.EncodingConverter.Logic
             get { return _encodings; }
         }
 
-        public static async Task<Encoding> Resolve(string filePath)
+        public EncodingManager(FileManager fileManager)
         {
-            var bytes = File.ReadAllBytes(filePath);
-            var charDet = new UniversalDetector();
-            await Task.Factory.StartNew(() => charDet.HandleData(bytes));
-            return !charDet.DetectedCharsetName.IsEmpty() ? Encoding.GetEncoding(charDet.DetectedCharsetName) : null;
+            _fileManager = fileManager;
         }
 
-        public static void Convert(string filePath, Encoding from, Encoding to)
+        public async Task<Encoding> Resolve(string filePath)
         {
-            //var bytes = _fileManager.Load(filePath);
-            //var convertedBytes = Encoding.Convert(from, to, bytes);
+            _detector.Reset();
+            await Task.Factory.StartNew(() =>
+                {
+                    var bytes = _fileManager.Load(filePath);
+                    _detector.HandleData(bytes);
+                });
+            return !_detector.DetectedCharsetName.IsEmpty() ? Encoding.GetEncoding(_detector.DetectedCharsetName) : null;
+        }
+
+        public void Convert(string filePath, Encoding from, Encoding to)
+        {
+            var bytes = _fileManager.Load(filePath);
+            var convertedBytes = Encoding.Convert(from, to, bytes);
+            _fileManager.Save(filePath, convertedBytes);
         }
     }
 }
