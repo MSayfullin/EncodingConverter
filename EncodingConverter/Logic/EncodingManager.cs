@@ -2,10 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Mozilla.CharDet;
-using dokas.FluentStrings;
 using System.Threading.Tasks;
-using System.Threading;
+using dokas.FluentStrings;
+using Mozilla.CharDet;
 
 namespace dokas.EncodingConverter.Logic
 {
@@ -33,13 +32,8 @@ namespace dokas.EncodingConverter.Logic
 
         public static void Convert(string filePath, Encoding from, Encoding to)
         {
-            var bytes = File.ReadAllBytes(filePath);
-            var convertedBytes = Encoding.Convert(from, to, bytes);
-            //if (!Directory.Exists(DestinationFolder))
-            //{
-            //    Directory.CreateDirectory(DestinationFolder);
-            //}
-            //File.WriteAllBytes(Path.Combine(DestinationFolder, Path.GetFileName(filePath)), convertedBytes);
+            //var bytes = _fileManager.Load(filePath);
+            //var convertedBytes = Encoding.Convert(from, to, bytes);
         }
     }
 }

@@ -52,5 +52,19 @@ namespace dokas.EncodingConverter.Logic
                 .AsParallel()
                 .SelectMany(pattern => Directory.EnumerateFiles(_sourcePath.Value, pattern, SearchOption.AllDirectories));
         }
+
+        public byte[] Load(string filePath)
+        {
+            return File.ReadAllBytes(filePath);
+        }
+
+        public void Save(string filePath, byte[] bytes)
+        {
+            if (!Directory.Exists(_destinationPath.Value))
+            {
+                Directory.CreateDirectory(_destinationPath.Value);
+            }
+            File.WriteAllBytes(Path.Combine(_destinationPath.Value, Path.GetFileName(filePath)), bytes);
+        }
     }
 }
