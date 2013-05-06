@@ -25,11 +25,5 @@ namespace dokas.EncodingConverter
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-        private void _cancelButton_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
     }
 }
