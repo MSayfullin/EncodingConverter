@@ -4,11 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Logic;
 using dokas.FluentStrings;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter
 {
-    public partial class FileItemControl : UserControl
+    internal partial class FileItemControl : UserControl
     {
         private const string Exclude = "Exclude";
         private const string Include = "Include";

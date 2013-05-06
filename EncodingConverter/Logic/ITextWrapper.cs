@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter.Logic
 {
     internal interface ITextWrapper
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Logic;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter
 {
     internal partial class EncodingSelector : Form
     {

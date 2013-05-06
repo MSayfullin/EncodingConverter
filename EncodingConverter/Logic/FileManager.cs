@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter.Logic
 {
     internal sealed class FileManager
     {

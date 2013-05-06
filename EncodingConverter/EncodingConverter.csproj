@@ -45,7 +45,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EncodingManager.cs" />
+    <Compile Include="Logic\EncodingManager.cs" />
     <Compile Include="EncodingSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,8 +58,8 @@
     <Compile Include="FileItemControl.Designer.cs">
       <DependentUpon>FileItemControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManager.cs" />
-    <Compile Include="ITextWrapper.cs" />
+    <Compile Include="Logic\FileManager.cs" />
+    <Compile Include="Logic\ITextWrapper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

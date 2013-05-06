@@ -2,9 +2,10 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Logic;
 using dokas.FluentStrings;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter
 {
     internal partial class MainForm : Form
     {

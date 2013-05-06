@@ -7,7 +7,7 @@ using dokas.FluentStrings;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter.Logic
 {
     internal static class EncodingManager
     {

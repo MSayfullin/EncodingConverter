@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Logic;
 
-namespace dokas.Encoder
+namespace dokas.EncodingConverter
 {
     internal class TextBoxWrapper : ITextWrapper
     {

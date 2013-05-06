@@ -1,4 +1,4 @@
-﻿namespace dokas.Encoder
+﻿namespace dokas.EncodingConverter
 {
     partial class EncodingSelector
     {
