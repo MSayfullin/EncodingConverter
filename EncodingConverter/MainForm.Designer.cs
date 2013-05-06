@@ -220,6 +220,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 661);
             this.Controls.Add(this._mainLayout);
+            this.DoubleBuffered = true;
             this.MainMenuStrip = this._menu;
             this.MinimumSize = new System.Drawing.Size(600, 700);
             this.Name = "MainForm";
