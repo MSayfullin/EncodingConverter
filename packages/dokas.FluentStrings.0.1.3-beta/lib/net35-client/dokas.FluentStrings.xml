@@ -1,0 +1,431 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dokas.FluentStrings</name>
+    </assembly>
+    <members>
+        <member name="M:dokas.FluentStrings.InsertExtensions.Insert(System.String,System.String)">
+            <summary>
+            Inserts value to the beginning of the given string.
+            N.B.: Default Insert() is equivalent of Insert().To(The.Beginning)
+            and Insert().At(position: 0).From(The.Beginning)
+            </summary>
+            <param name="source">Target string for insertion.</param>
+            <param name="value">String to be inserted.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.To(dokas.FluentStrings.Actions.Insert.InsertString,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert action with the ability to change place of insertion.
+            </summary>
+            <param name="source">Target string for insertion.</param>
+            <param name="position">
+            Position in source string for insertion. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.At(dokas.FluentStrings.Actions.Insert.InsertString,System.Int32)">
+            <summary>
+            Extends Insert action with the ability to change position of insertion.
+            N.B.: Default Insert().At() is equivalent of Insert().At().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for insertion.</param>
+            <param name="position">Position in string for insertion.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringAt,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.At action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.BeforeAll(dokas.FluentStrings.Actions.Insert.InsertString,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through the marker.
+            Given string is inserted BEFORE all markers in the target string.
+            </summary>
+            <param name="marker">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringBeforeAll)">
+            <summary>
+            Extends Insert.BeforeAll action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.Before(dokas.FluentStrings.Actions.Insert.InsertString,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through the marker.
+            Given string is inserted BEFORE first marker in the target string.
+            N.B.: Default Insert().Before() is equivalent of Insert().Before().From(The.Beginning)
+            </summary>
+            <param name="marker">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringBefore,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.Before action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringBefore)">
+            <summary>
+            Extends Insert.Before action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringBeforeIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.Before.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.Before(dokas.FluentStrings.Actions.Insert.InsertString,System.Int32,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through occurrence of the marker.
+            Given string is inserted right BEFORE the marker.
+            </summary>
+            <param name="occurrence">Marker occurrence value for insertion point.</param>
+            <param name="of">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringBeforeOccurrence)">
+            <summary>
+            Extends Insert.BeforeOccurrence action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringBeforeOccurrence,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.BeforeOccurrence action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringBeforeOccurrenceIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.BeforeOccurrence.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.AfterAll(dokas.FluentStrings.Actions.Insert.InsertString,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through some marker.
+            Given string is inserted AFTER all markers in the target string.
+            </summary>
+            <param name="marker">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringAfterAll)">
+            <summary>
+            Extends Insert.AfterAll action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.After(dokas.FluentStrings.Actions.Insert.InsertString,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through some marker.
+            Given string is inserted AFTER first marker in the target string.
+            N.B.: Default Insert().After() is equivalent of Insert().After().From(The.Beginning)
+            </summary>
+            <param name="marker">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringAfter,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.After action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringAfter)">
+            <summary>
+            Extends Insert.After action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringAfterIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.After.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.After(dokas.FluentStrings.Actions.Insert.InsertString,System.Int32,System.String)">
+            <summary>
+            Extends Insert action with the ability to set insertion point through occurrence of the marker.
+            Given string is inserted right AFTER the marker.
+            </summary>
+            <param name="occurrence">Marker occurrence value for insertion point.</param>
+            <param name="of">Marker value for insertion point.</param>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.IgnoringCase(dokas.FluentStrings.Actions.Insert.InsertStringAfterOccurrence)">
+            <summary>
+            Extends Insert.AfterOccurrence action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringAfterOccurrence,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.After action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.InsertExtensions.From(dokas.FluentStrings.Actions.Insert.InsertStringAfterOccurrenceIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Insert.AfterOccurrence.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used.</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.Remove(System.String)">
+            <summary>
+            Terminates string itself.
+            </summary>
+            <param name="source">Target string for removal</param>
+            <returns>Null if string is null and String.Empty in all other cases</returns>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.Remove(System.String,System.String)">
+            <summary>
+            Removes first value occurrence from the source string.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            N.B.: Default Remove() is equivalent of Remove().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for removal</param>
+            <param name="value">String to be removed</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.From(dokas.FluentStrings.Actions.Remove.RemoveValue,dokas.FluentStrings.The)">
+            <summary>
+            Extends Remove action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.IgnoringCase(dokas.FluentStrings.Actions.Remove.RemoveValue)">
+            <summary>
+            Extends Remove action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.From(dokas.FluentStrings.Actions.Remove.RemoveValueIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Remove.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.Remove(System.String,System.Int32,System.String)">
+            <summary>
+            Removes defined number of value occurrences from the source string.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            N.B.: Default Remove() is equivalent of Remove().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for removal</param>
+            <param name="quantity">Number of values to remove</param>
+            <param name="value">String to be removed</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.From(dokas.FluentStrings.Actions.Remove.RemoveValues,dokas.FluentStrings.The)">
+            <summary>
+            Extends Remove action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.IgnoringCase(dokas.FluentStrings.Actions.Remove.RemoveValues)">
+            <summary>
+            Extends Remove action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.From(dokas.FluentStrings.Actions.Remove.RemoveValuesIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends Remove.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.RemoveAll(System.String,System.String)">
+            <summary>
+            Removes all value occurrences from the source string.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            </summary>
+            <param name="source">Target string for removal</param>
+            <param name="value">String to be removed</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.IgnoringCase(dokas.FluentStrings.Actions.Remove.RemoveAll)">
+            <summary>
+            Extends RemoveAll action with the ability to ignore case
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.RemoveChars(System.String,System.Int32)">
+            <summary>
+            Removes number of chars from the source string.
+            N.B.: Default RemoveChars() is equivalent of RemoveChars().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for removal</param>
+            <param name="quantity">Number of chars to remove</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.From(dokas.FluentStrings.Actions.Remove.RemoveChars,dokas.FluentStrings.The)">
+            <summary>
+            Extends RemoveChars action with the ability to change starting point.
+            N.B.: RemoveChars().From(The.Beginning) is equivalent of the default RemoveChars()
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.RemoveChars(System.String,System.Char[])">
+            <summary>
+            Removes selected chars from the source string
+            </summary>
+            <param name="source">Target string for removal</param>
+            <param name="chars">Chars to be removed</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.IgnoringCase(dokas.FluentStrings.Actions.Remove.RemoveSelectedChars)">
+            <summary>
+            Extends RemoveChars action with the ability to ignore case
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.RemoveVowels(System.String)">
+            <summary>
+            Removes vowels from source string for a culture set on a CurrentThread.
+            N.B.: Thread.CurrentThread.CurrentCulture property is used
+            </summary>
+            <param name="source">Target string for removal</param>
+        </member>
+        <member name="M:dokas.FluentStrings.RemoveExtensions.For(dokas.FluentStrings.Actions.Remove.RemoveVowels,System.String)">
+            <summary>
+            Removes vowels from source string for a defined culture
+            </summary>
+            <param name="cultureName">Culture name in a .net format. e.g. "en-US", "ru"</param>
+        </member>
+        <member name="M:dokas.FluentStrings.TruncateExtensions.TruncateTo(System.String,System.Int32)">
+            <summary>
+            Truncates source string to a specified length.
+            N.B.: Default TruncateTo() is equivalent of TruncateTo().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for truncating</param>
+            <param name="length">Length of a resulting string</param>
+        </member>
+        <member name="M:dokas.FluentStrings.TruncateExtensions.With(dokas.FluentStrings.Actions.Truncate.TruncateString,System.String)">
+            <summary>
+            Extends Truncate action with the ability to append custom text at the end.
+            <param name="value">String to be appended at the end</param>
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.TruncateExtensions.WithEllipsis(dokas.FluentStrings.Actions.Truncate.TruncateString)">
+            <summary>
+            Extends Truncate action with the ability to append ellipsis at the end.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.TruncateExtensions.From(dokas.FluentStrings.Actions.Truncate.TruncateString,dokas.FluentStrings.The)">
+            <summary>
+            Extends Truncate action with the ability to change starting point.
+            N.B.: TruncateTo().From(The.Beginning) is equivalent of the default TruncateTo()
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End values could be used
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="T:dokas.FluentStrings.The">
+            <summary>
+            Represents position in a string
+            or marker point
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.ReplaceExtensions.ReplaceAll(System.String,System.String)">
+            <summary>
+            Replaces all occurences of given value in the source string.
+            Empty string is used for replacement, use With extension to change this value.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            </summary>
+            <param name="source">Target string for replacement</param>
+            <param name="value">String to be replaced</param>
+        </member>
+        <member name="M:dokas.FluentStrings.ReplaceExtensions.With(dokas.FluentStrings.Actions.Replace.ReplaceAll,System.String)">
+            <summary>
+            Extends ReplaceAll action with the replacement value.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            </summary>
+            <param name="replacement">Value for replacement</param>
+        </member>
+        <member name="M:dokas.FluentStrings.ReplaceExtensions.IgnoringCase(dokas.FluentStrings.Actions.Replace.ReplaceAllWith)">
+            <summary>
+            Extends ReplaceAll.With action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.IsEmpty(System.String)">
+            <summary>
+            Checks whether string is empty or not.
+            N.B.: Equivalent of String.IsNullOrEmpty method.
+            </summary>
+            <param name="source">Target string for examination</param>
+            <returns>True if string is null or empty, otherwise false</returns>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.OrWhiteSpace(dokas.FluentStrings.Actions.Utilities.IsEmptyString)">
+            <summary>
+            Adds validation whether string consists only of white-space characters.
+            N.B.: Equivalent of String.IsNullOrWhiteSpace method.
+            </summary>
+            <returns>True if string consists only of white-space characters, otherwise false</returns>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.Format(System.String,System.Object[])">
+            <summary>
+            Replaces the format item in a template with the text equivalent
+            of the value specified in a values array.
+            </summary>
+            <param name="template">Formating template</param>
+            <param name="values">Values for fomating template</param>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.IndexesOf(System.String,System.String)">
+            <summary>
+            Enumerates through indexes of a marker value in a given string.
+            Action is case sensitive by default, use IgnoringCase extension to change behaviour.
+            N.B.: Default IndexesOf() is equivalent of IndexesOf().From(The.Beginning)
+            </summary>
+            <param name="source">Target string for indexing</param>
+            <param name="value">Marker value</param>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.IgnoringCase(dokas.FluentStrings.Actions.Utilities.IndexesOfValue)">
+            <summary>
+            Extends IndexesOf action with the ability to ignore case.
+            </summary>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.From(dokas.FluentStrings.Actions.Utilities.IndexesOfValue,dokas.FluentStrings.The)">
+            <summary>
+            Extends IndexesOf action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+        <member name="M:dokas.FluentStrings.UtilityExtensions.From(dokas.FluentStrings.Actions.Utilities.IndexesOfValueIgnoringCase,dokas.FluentStrings.The)">
+            <summary>
+            Extends IndexesOf.IgnoringCase action with the ability to change starting point.
+            </summary>
+            <param name="position">
+            Position in source string to start from. Beginning or End value can be used.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when StartOf or EndOf position value is used</exception>
+        </member>
+    </members>
+</doc>
