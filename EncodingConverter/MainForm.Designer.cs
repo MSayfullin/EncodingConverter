@@ -188,8 +188,8 @@
             // 
             // _encodingsComboBox
             // 
-            this._encodingsComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this._encodingsComboBox.DisplayMember = "EncodingName";
+            this._encodingsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._encodingsComboBox.FormattingEnabled = true;
             this._encodingsComboBox.Location = new System.Drawing.Point(107, 85);
             this._encodingsComboBox.Name = "_encodingsComboBox";
