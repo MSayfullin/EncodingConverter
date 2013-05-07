@@ -29,7 +29,7 @@ namespace dokas.EncodingConverter
             _encodingManager = new EncodingManager(_fileManager);
         }
 
-        private async void _openSourceFolderDialog_Click(object sender, EventArgs e)
+        private void _openSourceFolderDialog_Click(object sender, EventArgs e)
         {
             _openFolder.ShowNewFolderButton = false;
             _openFolder.Description = "Select source folder with files which encodings should be changed";
@@ -50,9 +50,9 @@ namespace dokas.EncodingConverter
                 var to = (Encoding)_encodingsComboBox.SelectedItem;
                 foreach (var filePath in _fileManager.GetFilePaths())
                 {
-                    var from = await _encodingManager.Resolve(filePath);
+                    
                     var control = new FileItemControl(_encodingManager) { Dock = DockStyle.Fill };
-                    control.LoadData(filePath, from, to);
+                    control.LoadData(filePath, to);
                     _itemsTable.SuspendLayout();
                     _itemsTable.Controls.Add(control, 1, i++);
                     _itemsTable.ResumeLayout(true);

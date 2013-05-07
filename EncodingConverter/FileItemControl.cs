@@ -11,6 +11,8 @@ namespace dokas.EncodingConverter
 {
     internal partial class FileItemControl : UserControl
     {
+        private const string Undefined = "Undefined";
+
         private const string Exclude = "Exclude";
         private const string Include = "Include";
 
@@ -28,15 +30,16 @@ namespace dokas.EncodingConverter
             _encodingManager = encodingManager;
         }
 
-        public void LoadData(string filePath, Encoding from, Encoding to)
+        public async void LoadData(string filePath, Encoding to)
         {
             _filePath = filePath;
-            _encodingFrom = from;
             _encodingTo = to;
 
             _fileNameLink.Text = Path.GetFileName(filePath).TruncateTo(73).WithEllipsis();
-            _fromLink.Text = from != null ? from.EncodingName : String.Empty;
-            _toLink.Text = to.EncodingName;
+            _toLink.Text = _encodingTo.EncodingName;
+
+            _encodingFrom = await _encodingManager.Resolve(filePath);
+            _fromLink.Text = _encodingFrom != null ? _encodingFrom.EncodingName : Undefined;
         }
 
         private void _convertButton_Click(object sender, EventArgs e)
@@ -85,7 +88,7 @@ namespace dokas.EncodingConverter
                 if (result == DialogResult.OK)
                 {
                     encoding = _encodingSelector.SelectedEncoding;
-                    link.Text = encoding.EncodingName;
+                    link.Text = encoding != null ? encoding.EncodingName : Undefined;
                 }
             }
         }
