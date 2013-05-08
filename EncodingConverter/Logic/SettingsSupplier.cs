@@ -60,12 +60,12 @@ namespace dokas.EncodingConverter.Logic
             catch (UnauthorizedAccessException ex)
             {
                 throw new RecoverableException(
-                    "Cannot save settings." + Environment.NewLine + ex.Message, ex);
+                    "Settings cannot be saved." + Environment.NewLine + ex.Message, ex);
             }
             catch (SecurityException ex)
             {
                 throw new RecoverableException(
-                    "Cannot save settings because of security restrictions. Check permissions on a configuration file.", ex);
+                    "Settings cannot be saved. Check that you have sufficient permissions.", ex);
             }
         }
 
@@ -104,7 +104,7 @@ namespace dokas.EncodingConverter.Logic
             catch (SecurityException ex)
             {
                 throw new RecoverableException(
-                    "Cannot load settings because of security restrictions. Check permissions on a configuration file.", ex);
+                    "Settings cannot be loaded. Check that you have sufficient permissions.", ex);
             }
             catch (XmlException)
             {

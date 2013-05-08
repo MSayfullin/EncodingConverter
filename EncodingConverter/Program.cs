@@ -56,7 +56,7 @@ namespace dokas.EncodingConverter
         private static void HandleRecoverableException(string message)
         {
             MessageBox.Show(
-                message,
+                message + Environment.NewLine + Environment.NewLine + "Please correct the issue and retry.",
                 "Something is wrong...",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning);
