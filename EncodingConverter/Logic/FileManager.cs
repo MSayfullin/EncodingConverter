@@ -43,7 +43,7 @@ namespace dokas.EncodingConverter.Logic
 
         public IEnumerable<string> GetFilePaths()
         {
-            return SettingsSupplier.SearchPatterns
+            return SettingsProvider.SearchPatterns
                 .AsParallel()
                 .SelectMany(pattern => GetFilesBy(pattern));
         }

@@ -9,7 +9,7 @@ using dokas.EncodingConverter.Exceptions;
 
 namespace dokas.EncodingConverter.Logic
 {
-    internal static class SettingsSupplier
+    internal static class SettingsProvider
     {
         private const string TextBasedExtensionsTag = "textBasedExtensions";
         private const string XmlBasedExtensionsTag = "xmlBasedExtensions";
@@ -22,7 +22,7 @@ namespace dokas.EncodingConverter.Logic
         private static readonly Dictionary<string, FileTypes> _fileExtensionsMap = new Dictionary<string, FileTypes>();
         private static readonly IEnumerable<string> _searchPatterns;
 
-        static SettingsSupplier()
+        static SettingsProvider()
         {
             LoadSettings();
             PrepareExtensionsMap();
