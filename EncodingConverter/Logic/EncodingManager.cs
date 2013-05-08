@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,10 @@ namespace dokas.EncodingConverter.Logic
     {
         private readonly FileManager _fileManager;
         private static readonly IEnumerable<Encoding> _encodings;
-        private static readonly UniversalDetector _detector;
 
         static EncodingManager()
         {
             _encodings = Encoding.GetEncodings().Select(e => e.GetEncoding()).ToArray();
-            _detector = new UniversalDetector();
         }
 
         public static IEnumerable<Encoding> Encodings
@@ -31,17 +30,28 @@ namespace dokas.EncodingConverter.Logic
 
         public async Task<Encoding> Resolve(string filePath)
         {
-            _detector.Reset();
+            UniversalDetector detector = null;
             await Task.Factory.StartNew(() =>
                 {
                     var bytes = _fileManager.Load(filePath);
-                    _detector.HandleData(bytes);
+
+                    detector = new UniversalDetector();
+                    detector.HandleData(bytes);
                 });
-            return !_detector.DetectedCharsetName.IsEmpty() ? Encoding.GetEncoding(_detector.DetectedCharsetName) : null;
+            return !detector.DetectedCharsetName.IsEmpty() ? Encoding.GetEncoding(detector.DetectedCharsetName) : null;
         }
 
         public void Convert(string filePath, Encoding from, Encoding to)
         {
+            if (from == null)
+            {
+                throw new ArgumentOutOfRangeException("from");
+            }
+            if (to == null)
+            {
+                throw new ArgumentOutOfRangeException("to");
+            }
+
             var bytes = _fileManager.Load(filePath);
             var convertedBytes = Encoding.Convert(from, to, bytes);
             _fileManager.Save(filePath, convertedBytes);
