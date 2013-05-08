@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security;
+using System.Xml;
 using System.Xml.Linq;
+using dokas.EncodingConverter.Exceptions;
 
 namespace dokas.EncodingConverter.Logic
 {
@@ -54,8 +57,15 @@ namespace dokas.EncodingConverter.Logic
                             new XElement(HtmlBasedExtensionsTag, HtmlBasedExtensions)));
                 config.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             }
-            catch (Exception)
+            catch (UnauthorizedAccessException ex)
             {
+                throw new RecoverableException(
+                    "Cannot save settings." + Environment.NewLine + ex.Message, ex);
+            }
+            catch (SecurityException ex)
+            {
+                throw new RecoverableException(
+                    "Cannot save settings because of security restrictions. Check permissions on a configuration file.", ex);
             }
         }
 
@@ -87,8 +97,18 @@ namespace dokas.EncodingConverter.Logic
                     HtmlBasedExtensions = tag.Value;
                 }
             }
-            catch (Exception)
+            catch (FileNotFoundException)
             {
+                // just use default values instead
+            }
+            catch (SecurityException ex)
+            {
+                throw new RecoverableException(
+                    "Cannot load settings because of security restrictions. Check permissions on a configuration file.", ex);
+            }
+            catch (XmlException)
+            {
+                // settings are corrupted, so use default values instead
             }
         }
 

@@ -47,6 +47,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\RecoverableException.cs" />
+    <Compile Include="Exceptions\UnrecoverableException.cs" />
     <Compile Include="Logic\EncodingManager.cs" />
     <Compile Include="EncodingSelector.cs">
       <SubType>Form</SubType>
@@ -84,6 +86,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
