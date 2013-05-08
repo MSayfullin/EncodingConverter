@@ -13,11 +13,6 @@ namespace dokas.EncodingConverter.Logic
         private readonly ITextWrapper _destinationPath;
         private string _destinationPathGeneratedValue;
 
-        private readonly IEnumerable<string> _textFileExtensions = new[] { "*.txt" };
-        private readonly IEnumerable<string> _xmlBasedFileExtensions = new[] { "*.xml", "*.fb2" };
-        private readonly IEnumerable<string> _htmlFileExtensions = new[] { "*.htm", "*.html" };
-        private readonly IEnumerable<string> _searchPatterns;
-
         public FileManager(ITextWrapper sourcePath, ITextWrapper destinationPath)
         {
             if (sourcePath == null)
@@ -32,8 +27,6 @@ namespace dokas.EncodingConverter.Logic
             _sourcePath = sourcePath;
             _destinationPath = destinationPath;
             _destinationPathGeneratedValue = String.Empty;
-
-            _searchPatterns = _textFileExtensions.Concat(_xmlBasedFileExtensions).Concat(_htmlFileExtensions);
         }
 
         public void SetDestinationPath()
@@ -48,7 +41,7 @@ namespace dokas.EncodingConverter.Logic
 
         public IEnumerable<string> GetFilePaths()
         {
-            return _searchPatterns
+            return SettingsSupplier.SearchPatterns
                 .AsParallel()
                 .SelectMany(pattern => Directory.EnumerateFiles(_sourcePath.Value, pattern, SearchOption.AllDirectories));
         }

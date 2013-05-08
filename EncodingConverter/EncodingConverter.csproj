@@ -43,6 +43,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\EncodingManager.cs" />
@@ -59,7 +61,9 @@
       <DependentUpon>FileItemControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic\FileManager.cs" />
+    <Compile Include="Logic\FileTypes.cs" />
     <Compile Include="Logic\ITextWrapper.cs" />
+    <Compile Include="Logic\SettingsSupplier.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
