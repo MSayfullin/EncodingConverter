@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using dokas.EncodingConverter.Logic;
-using dokas.FluentStrings;
 
 namespace dokas.EncodingConverter
 {
@@ -45,11 +43,10 @@ namespace dokas.EncodingConverter
 
                 int i = 0;
                 var to = (Encoding)_encodingsComboBox.SelectedItem;
-                foreach (var filePath in _fileManager.GetFilePaths())
+                foreach (var fileData in _fileManager.GetFilePaths())
                 {
-                    
                     var control = new FileItemControl(_encodingManager) { Dock = DockStyle.Fill };
-                    control.LoadData(filePath, to);
+                    control.Resolve(fileData, to);
                     _itemsTable.SuspendLayout();
                     _itemsTable.Controls.Add(control, 1, i++);
                     _itemsTable.ResumeLayout(true);

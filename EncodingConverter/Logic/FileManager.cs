@@ -41,7 +41,7 @@ namespace dokas.EncodingConverter.Logic
             }
         }
 
-        public IEnumerable<string> GetFilePaths()
+        public IEnumerable<FileData> GetFilePaths()
         {
             return SettingsProvider.SearchPatterns
                 .AsParallel()
@@ -62,11 +62,13 @@ namespace dokas.EncodingConverter.Logic
 
         #region Helpers
 
-        private IEnumerable<string> GetFilesBy(string pattern)
+        private IEnumerable<FileData> GetFilesBy(string pattern)
         {
             try
             {
-                return Directory.EnumerateFiles(_sourcePath.Value, pattern, SearchOption.AllDirectories);
+                return Directory
+                    .EnumerateFiles(_sourcePath.Value, pattern, SearchOption.AllDirectories)
+                    .Select(p => new FileData(p));
             }
             catch (ArgumentNullException)
             {

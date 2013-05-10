@@ -21,7 +21,7 @@ namespace dokas.EncodingConverter
 
         #endregion
 
-        private string _filePath;
+        private FileData _fileData;
         private Encoding _encodingFrom;
         private Encoding _encodingTo;
         private readonly EncodingManager _encodingManager;
@@ -42,20 +42,24 @@ namespace dokas.EncodingConverter
             get { return _encodingFrom != null && _encodingTo != null; }
         }
 
-        public async void LoadData(string filePath, Encoding to)
+        public async void Resolve(FileData fileData, Encoding to)
         {
-            if (filePath == null)
+            if (fileData == null)
             {
-                throw new ArgumentNullException("filePath");
+                throw new ArgumentNullException("fileData");
+            }
+            if (to == null)
+            {
+                throw new ArgumentNullException("to");
             }
 
-            _filePath = filePath;
+            _fileData = fileData;
             _encodingTo = to;
 
-            _fileNameLink.Text = Path.GetFileName(filePath).TruncateTo(70).WithEllipsis();
+            _fileNameLink.Text = fileData.Name.TruncateTo(70).WithEllipsis();
             _toLink.Text = _encodingTo.EncodingName;
 
-            _encodingFrom = await _encodingManager.Resolve(filePath);
+            _encodingFrom = await _encodingManager.Resolve(fileData.Path);
             _fromLink.Text = _encodingFrom != null ? _encodingFrom.EncodingName : Undefined;
             if (this.IsConvertable)
             {
@@ -78,7 +82,7 @@ namespace dokas.EncodingConverter
         {
             if (this.IsConvertable)
             {
-                _encodingManager.Convert(_filePath, _encodingFrom, _encodingTo);
+                _encodingManager.Convert(_fileData.Path, _encodingFrom, _encodingTo);
                 this.Enabled = false;
             }
         }
@@ -144,7 +148,7 @@ namespace dokas.EncodingConverter
         {
             try
             {
-                Process.Start(_filePath);
+                Process.Start(_fileData.Path);
             }
             catch (FileNotFoundException ex)
             {
@@ -160,7 +164,7 @@ namespace dokas.EncodingConverter
         {
             if (e.Button == MouseButtons.Left)
             {
-                _encodingSelector.AdditionalInfo = Path.GetFileName(_filePath);
+                _encodingSelector.AdditionalInfo = _fileData.Name;
                 _encodingSelector.SelectedEncoding = encoding;
                 var result = _encodingSelector.ShowDialog();
                 if (result == DialogResult.OK)

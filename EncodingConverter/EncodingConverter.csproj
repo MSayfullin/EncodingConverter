@@ -62,6 +62,7 @@
     <Compile Include="FileItemControl.Designer.cs">
       <DependentUpon>FileItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logic\FileData.cs" />
     <Compile Include="Logic\FileManager.cs" />
     <Compile Include="Logic\FileTypes.cs" />
     <Compile Include="Logic\ITextWrapper.cs" />
