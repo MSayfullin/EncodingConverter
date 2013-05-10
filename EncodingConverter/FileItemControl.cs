@@ -81,7 +81,13 @@ namespace dokas.EncodingConverter
             if (this.IsConvertable && _excludeModeOff)
             {
                 _encodingManager.Convert(_fileData.Path, _encodingFrom, _encodingTo);
-                this.Enabled = false;
+
+                // setting just this.Enabled = false will disable control itself
+                // preventing scrol from working with wheel
+                foreach (var control in this.Controls.OfType<Control>())
+                {
+                    control.Enabled = false;
+                }
             }
         }
 
