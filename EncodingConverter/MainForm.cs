@@ -77,5 +77,10 @@ namespace dokas.EncodingConverter
                 control.Convert();
             }
         }
+
+        private void _closeMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

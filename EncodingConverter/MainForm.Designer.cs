@@ -137,8 +137,9 @@
             // _closeMenuItem
             // 
             this._closeMenuItem.Name = "_closeMenuItem";
-            this._closeMenuItem.Size = new System.Drawing.Size(103, 22);
+            this._closeMenuItem.Size = new System.Drawing.Size(152, 22);
             this._closeMenuItem.Text = "Close";
+            this._closeMenuItem.Click += new System.EventHandler(this._closeMenuItem_Click);
             // 
             // _aboutMenuItem
             // 
