@@ -11,6 +11,7 @@ namespace dokas.EncodingConverter
     {
         private readonly FileManager _fileManager;
         private readonly EncodingManager _encodingManager;
+        private readonly EncodingSelector _encodingSelector;
 
         public MainForm()
         {
@@ -24,6 +25,7 @@ namespace dokas.EncodingConverter
                 destinationPath: new TextBoxWrapper(_destinationFolderPath));
 
             _encodingManager = new EncodingManager(_fileManager);
+            _encodingSelector = new EncodingSelector();
         }
 
         private void _openSourceFolderDialog_Click(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace dokas.EncodingConverter
                 var to = (Encoding)_encodingsComboBox.SelectedItem;
                 foreach (var fileData in _fileManager.GetFilePaths().OrderBySettings())
                 {
-                    var control = new FileItemControl(_encodingManager) { Dock = DockStyle.Fill };
+                    var control = new FileItemControl(_encodingManager, _encodingSelector) { Dock = DockStyle.Fill };
                     control.Resolve(fileData, to);
                     _itemsTable.SuspendLayout();
                     _itemsTable.Controls.Add(control, 1, i++);

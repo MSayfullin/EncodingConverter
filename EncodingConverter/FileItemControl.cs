@@ -27,14 +27,14 @@ namespace dokas.EncodingConverter
         private readonly EncodingManager _encodingManager;
         private readonly EncodingSelector _encodingSelector;
 
-        public FileItemControl(EncodingManager encodingManager)
+        public FileItemControl(EncodingManager encodingManager, EncodingSelector encodingSelector)
         {
             InitializeComponent();
 
             _excludeButton.Text = Exclude;
 
             _encodingManager = encodingManager;
-            _encodingSelector = new EncodingSelector();
+            _encodingSelector = encodingSelector;
         }
 
         public bool IsConvertable
