@@ -83,6 +83,7 @@ namespace dokas.EncodingConverter
         {
             if (e.Button == MouseButtons.Left)
             {
+                _encodingSelector.AdditionalInfo = Path.GetFileName(_filePath);
                 _encodingSelector.SelectedEncoding = encoding;
                 var result = _encodingSelector.ShowDialog();
                 if (result == DialogResult.OK)

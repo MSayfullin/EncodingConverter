@@ -14,7 +14,12 @@ namespace dokas.EncodingConverter
             _encodingsComboBox.DataSource = EncodingManager.Encodings;
         }
 
-        internal Encoding SelectedEncoding
+        public string AdditionalInfo
+        {
+            set { _additionalInfo.Text = value; }
+        }
+
+        public Encoding SelectedEncoding
         {
             get { return (Encoding)_encodingsComboBox.SelectedItem; }
             set { _encodingsComboBox.SelectedItem = value; }
