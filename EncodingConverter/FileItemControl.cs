@@ -96,21 +96,23 @@ namespace dokas.EncodingConverter
         private bool _excludeModeOff = true;
         private void _excludeButton_Click(object sender, EventArgs e)
         {
+            _excludeModeOff = !_excludeModeOff;
+
             foreach (var control in this.Controls.OfType<Control>().Where(c => c != _excludeButton))
             {
-                control.Enabled = !_excludeModeOff;
+                control.Enabled = _excludeModeOff;
             }
-            _excludeButton.Text = _excludeModeOff ? Include : Exclude;
+            _excludeButton.Text = _excludeModeOff ? Exclude : Include;
 
             if (this.IsConvertable)
             {
-                _convertButton.Enabled = true;
+                _convertButton.Enabled = _excludeModeOff;
             }
             else
             {
                 _convertButton.Enabled = false;
 
-                if (!_excludeModeOff)
+                if (_excludeModeOff)
                 {
                     SetEncodingsError();
                 }
@@ -119,8 +121,6 @@ namespace dokas.EncodingConverter
                     _errorProvider.Clear();
                 }
             }
-
-            _excludeModeOff = !_excludeModeOff;
         }
 
         private void _fileNameLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
