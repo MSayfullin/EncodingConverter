@@ -1,4 +1,5 @@
-﻿using IO = System.IO;
+﻿using System;
+using IO = System.IO;
 
 namespace dokas.EncodingConverter.Logic
 {
@@ -10,9 +11,25 @@ namespace dokas.EncodingConverter.Logic
 
         public FileData(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
             Path = path;
             Name = IO.Path.GetFileName(path);
             Extension = IO.Path.GetExtension(path);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var otherFileData = obj as FileData;
+            return otherFileData != null && Path.Equals(otherFileData.Path);
+        }
+
+        public override int GetHashCode()
+        {
+            return Path.GetHashCode();
         }
     }
 }
