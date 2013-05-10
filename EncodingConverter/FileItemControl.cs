@@ -76,25 +76,31 @@ namespace dokas.EncodingConverter
             }
         }
 
-        #region Event Handlers
-
-        private void _convertButton_Click(object sender, EventArgs e)
+        public void Convert()
         {
-            if (this.IsConvertable)
+            if (this.IsConvertable && _excludeModeOff)
             {
                 _encodingManager.Convert(_fileData.Path, _encodingFrom, _encodingTo);
                 this.Enabled = false;
             }
         }
 
-        private bool _excludeMode = true;
+
+        #region Event Handlers
+
+        private void _convertButton_Click(object sender, EventArgs e)
+        {
+            Convert();
+        }
+
+        private bool _excludeModeOff = true;
         private void _excludeButton_Click(object sender, EventArgs e)
         {
             foreach (var control in this.Controls.OfType<Control>().Where(c => c != _excludeButton))
             {
-                control.Enabled = !_excludeMode;
+                control.Enabled = !_excludeModeOff;
             }
-            _excludeButton.Text = _excludeMode ? Include : Exclude;
+            _excludeButton.Text = _excludeModeOff ? Include : Exclude;
 
             if (this.IsConvertable)
             {
@@ -104,7 +110,7 @@ namespace dokas.EncodingConverter
             {
                 _convertButton.Enabled = false;
 
-                if (!_excludeMode)
+                if (!_excludeModeOff)
                 {
                     SetEncodingsError();
                 }
@@ -114,7 +120,7 @@ namespace dokas.EncodingConverter
                 }
             }
 
-            _excludeMode = !_excludeMode;
+            _excludeModeOff = !_excludeModeOff;
         }
 
         private void _fileNameLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

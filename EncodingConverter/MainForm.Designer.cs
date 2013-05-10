@@ -43,6 +43,7 @@
             this._outputEncodingLabel = new System.Windows.Forms.Label();
             this._encodingsComboBox = new System.Windows.Forms.ComboBox();
             this._itemsTable = new System.Windows.Forms.TableLayoutPanel();
+            this._convertAllButton = new System.Windows.Forms.Button();
             this._mainLayout.SuspendLayout();
             this._menu.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +57,7 @@
             this._sourceFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this._sourceFolderPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this._sourceFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this._mainLayout.SetColumnSpan(this._sourceFolderPath, 2);
             this._sourceFolderPath.Location = new System.Drawing.Point(107, 33);
             this._sourceFolderPath.Name = "_sourceFolderPath";
             this._sourceFolderPath.Size = new System.Drawing.Size(432, 20);
@@ -83,20 +85,22 @@
             // 
             // _mainLayout
             // 
-            this._mainLayout.ColumnCount = 3;
+            this._mainLayout.ColumnCount = 4;
             this._mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 104F));
             this._mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this._mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this._mainLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this._mainLayout.Controls.Add(this._menu, 0, 0);
             this._mainLayout.Controls.Add(this._sourceFolderLabel, 0, 1);
             this._mainLayout.Controls.Add(this._sourceFolderPath, 1, 1);
-            this._mainLayout.Controls.Add(this._openSourceFolderDialog, 2, 1);
+            this._mainLayout.Controls.Add(this._openSourceFolderDialog, 3, 1);
             this._mainLayout.Controls.Add(this._destinationFolderLabel, 0, 2);
             this._mainLayout.Controls.Add(this._destinationFolderPath, 1, 2);
-            this._mainLayout.Controls.Add(this._openDestinationFolderDialog, 2, 2);
+            this._mainLayout.Controls.Add(this._openDestinationFolderDialog, 3, 2);
             this._mainLayout.Controls.Add(this._outputEncodingLabel, 0, 3);
             this._mainLayout.Controls.Add(this._encodingsComboBox, 1, 3);
             this._mainLayout.Controls.Add(this._itemsTable, 1, 4);
+            this._mainLayout.Controls.Add(this._convertAllButton, 2, 3);
             this._mainLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mainLayout.Location = new System.Drawing.Point(0, 0);
             this._mainLayout.Name = "_mainLayout";
@@ -104,15 +108,15 @@
             this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this._mainLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
             this._mainLayout.Size = new System.Drawing.Size(584, 661);
             this._mainLayout.TabIndex = 4;
             // 
             // _menu
             // 
-            this._mainLayout.SetColumnSpan(this._menu, 3);
+            this._mainLayout.SetColumnSpan(this._menu, 4);
             this._menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
             this._aboutMenuItem});
@@ -169,6 +173,7 @@
             this._destinationFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this._destinationFolderPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this._destinationFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this._mainLayout.SetColumnSpan(this._destinationFolderPath, 2);
             this._destinationFolderPath.Location = new System.Drawing.Point(107, 59);
             this._destinationFolderPath.Name = "_destinationFolderPath";
             this._destinationFolderPath.Size = new System.Drawing.Size(432, 20);
@@ -181,7 +186,7 @@
             this._outputEncodingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._outputEncodingLabel.Location = new System.Drawing.Point(3, 82);
             this._outputEncodingLabel.Name = "_outputEncodingLabel";
-            this._outputEncodingLabel.Size = new System.Drawing.Size(98, 26);
+            this._outputEncodingLabel.Size = new System.Drawing.Size(98, 30);
             this._outputEncodingLabel.TabIndex = 8;
             this._outputEncodingLabel.Text = "Output encoding:";
             this._outputEncodingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -202,15 +207,26 @@
             this._itemsTable.AutoScroll = true;
             this._itemsTable.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this._itemsTable.ColumnCount = 1;
-            this._mainLayout.SetColumnSpan(this._itemsTable, 3);
+            this._mainLayout.SetColumnSpan(this._itemsTable, 4);
             this._itemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this._itemsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._itemsTable.Location = new System.Drawing.Point(0, 120);
+            this._itemsTable.Location = new System.Drawing.Point(0, 124);
             this._itemsTable.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
             this._itemsTable.Name = "_itemsTable";
             this._itemsTable.Padding = new System.Windows.Forms.Padding(9, 0, 9, 3);
-            this._itemsTable.Size = new System.Drawing.Size(584, 541);
+            this._itemsTable.Size = new System.Drawing.Size(584, 537);
             this._itemsTable.TabIndex = 3;
+            // 
+            // _convertAllButton
+            // 
+            this._mainLayout.SetColumnSpan(this._convertAllButton, 2);
+            this._convertAllButton.Location = new System.Drawing.Point(497, 85);
+            this._convertAllButton.Name = "_convertAllButton";
+            this._convertAllButton.Size = new System.Drawing.Size(78, 24);
+            this._convertAllButton.TabIndex = 6;
+            this._convertAllButton.Text = "Convert All";
+            this._convertAllButton.UseVisualStyleBackColor = true;
+            this._convertAllButton.Click += new System.EventHandler(this._convertAllButton_Click);
             // 
             // MainForm
             // 
@@ -248,6 +264,7 @@
         private System.Windows.Forms.TextBox _destinationFolderPath;
         private System.Windows.Forms.Label _outputEncodingLabel;
         private System.Windows.Forms.ComboBox _encodingsComboBox;
+        private System.Windows.Forms.Button _convertAllButton;
     }
 }
 

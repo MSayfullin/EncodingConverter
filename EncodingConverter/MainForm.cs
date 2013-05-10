@@ -69,5 +69,13 @@ namespace dokas.EncodingConverter
                 _destinationFolderPath.Text = _openFolder.SelectedPath;
             }
         }
+
+        private void _convertAllButton_Click(object sender, EventArgs e)
+        {
+            foreach (var control in _itemsTable.Controls.OfType<FileItemControl>())
+            {
+                control.Convert();
+            }
+        }
     }
 }
