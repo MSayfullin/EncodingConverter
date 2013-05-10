@@ -45,7 +45,8 @@ namespace dokas.EncodingConverter.Logic
         {
             return SettingsProvider.SearchPatterns
                 .AsParallel()
-                .SelectMany(pattern => GetFilesBy(pattern));
+                .SelectMany(pattern => GetFilesBy(pattern))
+                .Distinct();
         }
 
         public byte[] Load(string filePath)
