@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Exceptions;
 using dokas.EncodingConverter.Logic;
 using dokas.FluentStrings;
 
@@ -11,15 +13,19 @@ namespace dokas.EncodingConverter
 {
     internal partial class FileItemControl : UserControl
     {
+        #region Consts
         private const string Undefined = "Undefined";
 
         private const string Exclude = "Exclude";
         private const string Include = "Include";
 
+        #endregion
+
         private string _filePath;
         private Encoding _encodingFrom;
         private Encoding _encodingTo;
         private readonly EncodingManager _encodingManager;
+        private readonly EncodingSelector _encodingSelector;
 
         public FileItemControl(EncodingManager encodingManager)
         {
@@ -28,34 +34,82 @@ namespace dokas.EncodingConverter
             _excludeButton.Text = Exclude;
 
             _encodingManager = encodingManager;
+            _encodingSelector = new EncodingSelector();
+        }
+
+        public bool IsConvertable
+        {
+            get { return _encodingFrom != null && _encodingTo != null; }
         }
 
         public async void LoadData(string filePath, Encoding to)
         {
+            if (filePath == null)
+            {
+                throw new ArgumentNullException("filePath");
+            }
+
             _filePath = filePath;
             _encodingTo = to;
 
-            _fileNameLink.Text = Path.GetFileName(filePath).TruncateTo(73).WithEllipsis();
+            _fileNameLink.Text = Path.GetFileName(filePath).TruncateTo(70).WithEllipsis();
             _toLink.Text = _encodingTo.EncodingName;
 
             _encodingFrom = await _encodingManager.Resolve(filePath);
             _fromLink.Text = _encodingFrom != null ? _encodingFrom.EncodingName : Undefined;
+            if (this.IsConvertable)
+            {
+                _convertButton.Enabled = true;
+            }
+            else
+            {
+                _convertButton.Enabled = false;
+
+                // do not blink on load
+                _errorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+                SetEncodingsError();
+                _errorProvider.BlinkStyle = ErrorBlinkStyle.BlinkIfDifferentError;
+            }
         }
+
+        #region Event Handlers
 
         private void _convertButton_Click(object sender, EventArgs e)
         {
-            _encodingManager.Convert(_filePath, _encodingFrom, _encodingTo);
-            this.Enabled = false;
+            if (this.IsConvertable)
+            {
+                _encodingManager.Convert(_filePath, _encodingFrom, _encodingTo);
+                this.Enabled = false;
+            }
         }
 
         private bool _excludeMode = true;
         private void _excludeButton_Click(object sender, EventArgs e)
         {
-            foreach (Control control in this.Controls.OfType<Control>().Where(c => c != _excludeButton))
+            foreach (var control in this.Controls.OfType<Control>().Where(c => c != _excludeButton))
             {
                 control.Enabled = !_excludeMode;
             }
             _excludeButton.Text = _excludeMode ? Include : Exclude;
+
+            if (this.IsConvertable)
+            {
+                _convertButton.Enabled = true;
+            }
+            else
+            {
+                _convertButton.Enabled = false;
+
+                if (!_excludeMode)
+                {
+                    SetEncodingsError();
+                }
+                else
+                {
+                    _errorProvider.Clear();
+                }
+            }
+
             _excludeMode = !_excludeMode;
         }
 
@@ -63,11 +117,9 @@ namespace dokas.EncodingConverter
         {
             if (e.Button == MouseButtons.Left)
             {
-                Process.Start(_filePath);
+                OpenFileInAssignedApp();
             }
         }
-
-        private readonly EncodingSelector _encodingSelector = new EncodingSelector();
 
         private void _fromLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -77,6 +129,31 @@ namespace dokas.EncodingConverter
         private void _toLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             HandleEncodingLinkClick(e, _toLink, ref _encodingTo);
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private void SetEncodingsError()
+        {
+            _errorProvider.SetError(_encodingsPanel, "File cannot be converted until both encodings are defined.");
+        }
+
+        private void OpenFileInAssignedApp()
+        {
+            try
+            {
+                Process.Start(_filePath);
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new RecoverableException("File was not found.", ex);
+            }
+            catch (Win32Exception ex)
+            {
+                throw new RecoverableException("File cannot be opened. Something is wrong in environment: " + ex.Message, ex);
+            }
         }
 
         private void HandleEncodingLinkClick(LinkLabelLinkClickedEventArgs e, LinkLabel link, ref Encoding encoding)
@@ -90,8 +167,21 @@ namespace dokas.EncodingConverter
                 {
                     encoding = _encodingSelector.SelectedEncoding;
                     link.Text = encoding != null ? encoding.EncodingName : Undefined;
+
+                    if (this.IsConvertable)
+                    {
+                        _convertButton.Enabled = true;
+                        _errorProvider.Clear();
+                    }
+                    else
+                    {
+                        _convertButton.Enabled = false;
+                        SetEncodingsError();
+                    }
                 }
             }
         }
+
+        #endregion
     }
 }
