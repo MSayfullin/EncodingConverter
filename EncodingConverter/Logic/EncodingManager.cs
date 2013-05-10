@@ -45,11 +45,11 @@ namespace dokas.EncodingConverter.Logic
         {
             if (from == null)
             {
-                throw new ArgumentOutOfRangeException("from");
+                throw new ArgumentNullException("from");
             }
             if (to == null)
             {
-                throw new ArgumentOutOfRangeException("to");
+                throw new ArgumentNullException("to");
             }
 
             var bytes = _fileManager.Load(filePath);
