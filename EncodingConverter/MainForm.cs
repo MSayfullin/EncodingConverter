@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using dokas.EncodingConverter.Logic;
@@ -43,7 +44,7 @@ namespace dokas.EncodingConverter
 
                 int i = 0;
                 var to = (Encoding)_encodingsComboBox.SelectedItem;
-                foreach (var fileData in _fileManager.GetFilePaths())
+                foreach (var fileData in _fileManager.GetFilePaths().OrderBySettings())
                 {
                     var control = new FileItemControl(_encodingManager) { Dock = DockStyle.Fill };
                     control.Resolve(fileData, to);

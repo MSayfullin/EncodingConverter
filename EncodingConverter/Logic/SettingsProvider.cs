@@ -11,13 +11,22 @@ namespace dokas.EncodingConverter.Logic
 {
     internal static class SettingsProvider
     {
+        #region Tag Names
+
+        private const string OrderByTag = "orderBy";
         private const string TextBasedExtensionsTag = "textBasedExtensions";
         private const string XmlBasedExtensionsTag = "xmlBasedExtensions";
         private const string HtmlBasedExtensionsTag = "htmlBasedExtensions";
 
+        #endregion
+
+        #region Defaults
+
         private const string TextBasedDefaultExtensions = "txt";
         private const string XmlBasedDefaultExtensions = "xml, fb2";
         private const string HtmlBasedDefaultExtensions = "htm, html";
+
+        #endregion
 
         private static readonly Dictionary<string, FileTypes> _fileExtensionsMap = new Dictionary<string, FileTypes>();
         private static readonly IEnumerable<string> _searchPatterns;
@@ -28,6 +37,8 @@ namespace dokas.EncodingConverter.Logic
             PrepareExtensionsMap();
             _searchPatterns = _fileExtensionsMap.Keys.ToSearhPatterns();
         }
+
+        public static OrderByProperties OrderBy { get; set; }
 
         public static string TextBasedExtensions { get; set; }
         public static string XmlBasedExtensions { get; set; }
@@ -45,6 +56,18 @@ namespace dokas.EncodingConverter.Logic
             return fileType;
         }
 
+        public static IEnumerable<FileData> OrderBySettings(this IEnumerable<FileData> fileData)
+        {
+            switch (OrderBy)
+            {
+                case OrderByProperties.Path: return fileData.OrderBy(d => d.Path);
+                case OrderByProperties.Name: return fileData.OrderBy(d => d.Name);
+                case OrderByProperties.Type: return fileData.OrderBy(d => d.Extension);
+                default:
+                    throw new NotImplementedException("It seems that newly added Order By Property is not supported everywhere.");
+            }
+        }
+
         public static void Save()
         {
             try
@@ -52,6 +75,7 @@ namespace dokas.EncodingConverter.Logic
                 var config =
                     new XDocument(
                         new XElement("configuration",
+                            new XElement(OrderByTag, OrderBy),
                             new XElement(TextBasedExtensionsTag, TextBasedExtensions),
                             new XElement(XmlBasedExtensionsTag, XmlBasedExtensions),
                             new XElement(HtmlBasedExtensionsTag, HtmlBasedExtensions)));
@@ -73,6 +97,8 @@ namespace dokas.EncodingConverter.Logic
 
         private static void LoadSettings()
         {
+            OrderBy = OrderByProperties.Name;
+
             TextBasedExtensions = TextBasedDefaultExtensions;
             XmlBasedExtensions = XmlBasedDefaultExtensions;
             HtmlBasedExtensions = HtmlBasedDefaultExtensions;
@@ -81,7 +107,12 @@ namespace dokas.EncodingConverter.Logic
             {
                 var config = XDocument.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
-                var tag = config.Root.Element(TextBasedExtensionsTag);
+                var tag = config.Root.Element(OrderByTag);
+                if (tag != null)
+                {
+                    OrderBy = (OrderByProperties)Enum.Parse(typeof(OrderByProperties), tag.Value.ToString());
+                }
+                tag = config.Root.Element(TextBasedExtensionsTag);
                 if (tag != null)
                 {
                     TextBasedExtensions = tag.Value;
@@ -97,6 +128,21 @@ namespace dokas.EncodingConverter.Logic
                     HtmlBasedExtensions = tag.Value;
                 }
             }
+            catch (ArgumentNullException)
+            {
+                // this rather impossible case
+                throw;
+            }
+            catch (ArgumentException)
+            {
+                // order by enum parsing is failed
+                // just use default values instead
+            }
+            catch (OverflowException)
+            {
+                // order by enum parsing is failed
+                // just use default values instead
+            }
             catch (FileNotFoundException)
             {
                 // just use default values instead
@@ -108,7 +154,8 @@ namespace dokas.EncodingConverter.Logic
             }
             catch (XmlException)
             {
-                // settings are corrupted, so use default values instead
+                // settings are corrupted
+                // just use default values instead
             }
         }
 

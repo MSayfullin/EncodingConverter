@@ -66,6 +66,7 @@
     <Compile Include="Logic\FileManager.cs" />
     <Compile Include="Logic\FileTypes.cs" />
     <Compile Include="Logic\ITextWrapper.cs" />
+    <Compile Include="Logic\OrderByProperties.cs" />
     <Compile Include="Logic\SettingsProvider.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
