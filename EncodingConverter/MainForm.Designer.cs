@@ -209,8 +209,6 @@
             this._itemsTable.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
             this._itemsTable.Name = "_itemsTable";
             this._itemsTable.Padding = new System.Windows.Forms.Padding(9, 0, 9, 3);
-            this._itemsTable.RowCount = 1;
-            this._itemsTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._itemsTable.Size = new System.Drawing.Size(584, 541);
             this._itemsTable.TabIndex = 3;
             // 

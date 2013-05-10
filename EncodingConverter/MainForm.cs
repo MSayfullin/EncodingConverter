@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -9,15 +10,12 @@ namespace dokas.EncodingConverter
 {
     internal partial class MainForm : Form
     {
-        private readonly int _itemsTableDefaultHeight;
         private readonly FileManager _fileManager;
         private readonly EncodingManager _encodingManager;
 
         public MainForm()
         {
             InitializeComponent();
-
-            _itemsTableDefaultHeight = _itemsTable.Height;
 
             _encodingsComboBox.DataSource = EncodingManager.Encodings;
             _encodingsComboBox.SelectedItem = Encoding.UTF8;
@@ -43,7 +41,6 @@ namespace dokas.EncodingConverter
                 _itemsTable.SuspendLayout();
                 _itemsTable.Controls.Clear();
                 _itemsTable.RowStyles.Clear();
-                _itemsTable.Height = _itemsTableDefaultHeight;
                 _itemsTable.ResumeLayout(true);
 
                 int i = 0;
@@ -64,7 +61,7 @@ namespace dokas.EncodingConverter
         private void _openDestinationFolderDialog_Click(object sender, EventArgs e)
         {
             _openFolder.ShowNewFolderButton = true;
-            _openFolder.Description = "Select destination folder where converted files should be placed";
+            _openFolder.Description = "Select destination folder for converted files.";
             _openFolder.SelectedPath = _destinationFolderPath.Text;
             var result = _openFolder.ShowDialog();
             if (result == DialogResult.OK)
