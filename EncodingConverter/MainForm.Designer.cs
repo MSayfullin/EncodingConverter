@@ -138,7 +138,7 @@
             // _closeMenuItem
             // 
             this._closeMenuItem.Name = "_closeMenuItem";
-            this._closeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this._closeMenuItem.Size = new System.Drawing.Size(103, 22);
             this._closeMenuItem.Text = "Close";
             this._closeMenuItem.Click += new System.EventHandler(this._closeMenuItem_Click);
             // 
@@ -147,6 +147,7 @@
             this._aboutMenuItem.Name = "_aboutMenuItem";
             this._aboutMenuItem.Size = new System.Drawing.Size(52, 20);
             this._aboutMenuItem.Text = "About";
+            this._aboutMenuItem.Click += new System.EventHandler(this._aboutMenuItem_Click);
             // 
             // _sourceFolderLabel
             // 

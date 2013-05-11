@@ -12,6 +12,7 @@ namespace dokas.EncodingConverter
         private readonly FileManager _fileManager;
         private readonly EncodingManager _encodingManager;
         private readonly EncodingSelector _encodingSelector;
+        private AboutBox _aboutBox;
 
         public MainForm()
         {
@@ -81,6 +82,15 @@ namespace dokas.EncodingConverter
         private void _closeMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void _aboutMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_aboutBox == null)
+            {
+                _aboutBox = new AboutBox();
+            }
+            _aboutBox.ShowDialog();
         }
     }
 }
