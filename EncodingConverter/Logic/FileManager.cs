@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using dokas.EncodingConverter.Exceptions;
+using dokas.FluentStrings;
 
 namespace dokas.EncodingConverter.Logic
 {
@@ -56,7 +57,10 @@ namespace dokas.EncodingConverter.Logic
 
         public void Save(string filePath, byte[] bytes)
         {
-            EnsureDestinationFolderExists();
+            string filePathFromSource = filePath.Remove(_sourcePath.Value).ToString().TrimStart(Path.DirectorySeparatorChar);
+            filePath = Path.Combine(_destinationPath.Value, filePathFromSource);
+
+            EnsureFolderExists(Path.GetDirectoryName(filePath));
             SaveFile(filePath, bytes);
         }
 
@@ -106,13 +110,13 @@ namespace dokas.EncodingConverter.Logic
             }
         }
 
-        private void EnsureDestinationFolderExists()
+        private void EnsureFolderExists(string folderPath)
         {
-            if (!Directory.Exists(_destinationPath.Value))
+            if (!Directory.Exists(folderPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(_destinationPath.Value);
+                    Directory.CreateDirectory(folderPath);
                 }
                 catch (ArgumentNullException ex)
                 {
@@ -208,7 +212,7 @@ namespace dokas.EncodingConverter.Logic
         {
             try
             {
-                File.WriteAllBytes(Path.Combine(_destinationPath.Value, Path.GetFileName(filePath)), bytes);
+                File.WriteAllBytes(Path.Combine(_destinationPath.Value, filePath), bytes);
             }
             catch (ArgumentNullException)
             {
