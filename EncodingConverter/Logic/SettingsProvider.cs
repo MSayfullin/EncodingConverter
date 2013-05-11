@@ -29,24 +29,54 @@ namespace dokas.EncodingConverter.Logic
         #endregion
 
         private static readonly Dictionary<string, FileTypes> _fileExtensionsMap = new Dictionary<string, FileTypes>();
-        private static readonly IEnumerable<string> _searchPatterns;
 
         static SettingsProvider()
         {
             LoadSettings();
-            PrepareExtensionsMap();
-            _searchPatterns = _fileExtensionsMap.Keys.ToSearhPatterns();
+
+            AddToExtensionsMap(FileTypes.Text, _textBasedExtensions);
+            AddToExtensionsMap(FileTypes.Xml, _xmlBasedExtensions);
+            AddToExtensionsMap(FileTypes.Html, _htmlBasedExtensions);
         }
 
         public static OrderBy OrderBy { get; set; }
 
-        public static string TextBasedExtensions { get; set; }
-        public static string XmlBasedExtensions { get; set; }
-        public static string HtmlBasedExtensions { get; set; }
+        private static string _textBasedExtensions;
+        public static string TextBasedExtensions
+        {
+            get { return _textBasedExtensions; }
+            set
+            {
+                _textBasedExtensions = value;
+                UpdateExtensionsMapFor(FileTypes.Text, _textBasedExtensions);
+            }
+        }
+
+        private static string _xmlBasedExtensions;
+        public static string XmlBasedExtensions
+        {
+            get { return _xmlBasedExtensions; }
+            set
+            {
+                _xmlBasedExtensions = value;
+                UpdateExtensionsMapFor(FileTypes.Xml, _xmlBasedExtensions);
+            }
+        }
+
+        private static string _htmlBasedExtensions;
+        public static string HtmlBasedExtensions
+        {
+            get { return _htmlBasedExtensions; }
+            set
+            {
+                _htmlBasedExtensions = value;
+                UpdateExtensionsMapFor(FileTypes.Html, _htmlBasedExtensions);
+            }
+        }
 
         public static IEnumerable<string> SearchPatterns
         {
-            get { return _searchPatterns; }
+            get { return _fileExtensionsMap.Keys.ToSearhPatterns(); }
         }
 
         public static FileTypes GetFileType(this string path)
@@ -76,9 +106,9 @@ namespace dokas.EncodingConverter.Logic
                     new XDocument(
                         new XElement("configuration",
                             new XElement(OrderByTag, OrderBy),
-                            new XElement(TextBasedExtensionsTag, TextBasedExtensions),
-                            new XElement(XmlBasedExtensionsTag, XmlBasedExtensions),
-                            new XElement(HtmlBasedExtensionsTag, HtmlBasedExtensions)));
+                            new XElement(TextBasedExtensionsTag, _textBasedExtensions),
+                            new XElement(XmlBasedExtensionsTag, _xmlBasedExtensions),
+                            new XElement(HtmlBasedExtensionsTag, _htmlBasedExtensions)));
                 config.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
             }
             catch (UnauthorizedAccessException ex)
@@ -99,9 +129,9 @@ namespace dokas.EncodingConverter.Logic
         {
             OrderBy = OrderBy.Name;
 
-            TextBasedExtensions = TextBasedDefaultExtensions;
-            XmlBasedExtensions = XmlBasedDefaultExtensions;
-            HtmlBasedExtensions = HtmlBasedDefaultExtensions;
+            _textBasedExtensions = TextBasedDefaultExtensions;
+            _xmlBasedExtensions = XmlBasedDefaultExtensions;
+            _htmlBasedExtensions = HtmlBasedDefaultExtensions;
 
             try
             {
@@ -115,17 +145,17 @@ namespace dokas.EncodingConverter.Logic
                 tag = config.Root.Element(TextBasedExtensionsTag);
                 if (tag != null)
                 {
-                    TextBasedExtensions = tag.Value;
+                    _textBasedExtensions = tag.Value;
                 }
                 tag = config.Root.Element(XmlBasedExtensionsTag);
                 if (tag != null)
                 {
-                    XmlBasedExtensions = tag.Value;
+                    _xmlBasedExtensions = tag.Value;
                 }
                 tag = config.Root.Element(HtmlBasedExtensionsTag);
                 if (tag != null)
                 {
-                    HtmlBasedExtensions = tag.Value;
+                    _htmlBasedExtensions = tag.Value;
                 }
             }
             catch (ArgumentNullException)
@@ -168,25 +198,31 @@ namespace dokas.EncodingConverter.Logic
                 .Select(extension => extension.StartsWith(".") ? extension : "." + extension);
         }
 
-        private static void PrepareExtensionsMap()
+        private static void AddToExtensionsMap(FileTypes fileType, string extensions)
         {
-            foreach (var extension in TextBasedExtensions.Prepare())
+            foreach (var extension in extensions.Prepare())
             {
-                _fileExtensionsMap.Add(extension, FileTypes.Text);
+                _fileExtensionsMap.Add(extension, fileType);
             }
-            foreach (var extension in XmlBasedExtensions.Prepare())
+        }
+
+        private static void UpdateExtensionsMapFor(FileTypes fileType, string extensions)
+        {
+            // clean up old values
+            var extensionsToRemove =_fileExtensionsMap
+                .Where(p => p.Value == fileType)
+                .Select(p => p.Key)
+                .ToArray();
+            foreach (var key in extensionsToRemove)
             {
-                _fileExtensionsMap.Add(extension, FileTypes.Xml);
+                _fileExtensionsMap.Remove(key);
             }
-            foreach (var extension in HtmlBasedExtensions.Prepare())
-            {
-                _fileExtensionsMap.Add(extension, FileTypes.Html);
-            }
+            AddToExtensionsMap(fileType, extensions);
         }
 
         private static IEnumerable<string> ToSearhPatterns(this IEnumerable<string> extensions)
         {
-            return extensions.Select(extension => "*" + extension).ToArray();
+            return extensions.Select(extension => "*" + extension);
         }
 
         #endregion

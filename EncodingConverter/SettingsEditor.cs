@@ -29,6 +29,12 @@ namespace dokas.EncodingConverter
                 SettingsProvider.HtmlBasedExtensions = _htmlBasedFilter.Text;
 
                 SettingsProvider.Save();
+
+                DialogResult = DialogResult.Yes;
+            }
+            else
+            {
+                DialogResult = DialogResult.No;
             }
             this.Close();
         }

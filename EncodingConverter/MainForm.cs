@@ -30,6 +30,26 @@ namespace dokas.EncodingConverter
             _encodingSelector = new EncodingSelector();
         }
 
+        private void ReloadFileItems()
+        {
+            _itemsTable.SuspendLayout();
+            _itemsTable.Controls.Clear();
+            _itemsTable.RowStyles.Clear();
+            _itemsTable.ResumeLayout(true);
+
+            int i = 0;
+            var to = (Encoding)_encodingsComboBox.SelectedItem;
+            foreach (var fileData in _fileManager.GetFilePaths().OrderBySettings())
+            {
+                var control = new FileItemControl(_encodingManager, _encodingSelector) { Dock = DockStyle.Fill };
+                control.Resolve(fileData, to);
+                _itemsTable.SuspendLayout();
+                _itemsTable.Controls.Add(control, 1, i++);
+                _itemsTable.ResumeLayout(true);
+                Application.DoEvents();
+            }
+        }
+
         private void _openSourceFolderDialog_Click(object sender, EventArgs e)
         {
             _openFolder.ShowNewFolderButton = false;
@@ -41,22 +61,7 @@ namespace dokas.EncodingConverter
                 _sourceFolderPath.Text = _openFolder.SelectedPath;
                 _fileManager.SetDestinationPath();
 
-                _itemsTable.SuspendLayout();
-                _itemsTable.Controls.Clear();
-                _itemsTable.RowStyles.Clear();
-                _itemsTable.ResumeLayout(true);
-
-                int i = 0;
-                var to = (Encoding)_encodingsComboBox.SelectedItem;
-                foreach (var fileData in _fileManager.GetFilePaths().OrderBySettings())
-                {
-                    var control = new FileItemControl(_encodingManager, _encodingSelector) { Dock = DockStyle.Fill };
-                    control.Resolve(fileData, to);
-                    _itemsTable.SuspendLayout();
-                    _itemsTable.Controls.Add(control, 1, i++);
-                    _itemsTable.ResumeLayout(true);
-                    Application.DoEvents();
-                }
+                ReloadFileItems();
             }
         }
 
@@ -80,6 +85,8 @@ namespace dokas.EncodingConverter
             }
         }
 
+        #region Menu
+
         private void _closeMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -91,7 +98,11 @@ namespace dokas.EncodingConverter
             {
                 _settingsEditor = new SettingsEditor();
             }
-            _settingsEditor.ShowDialog();
+            var result = _settingsEditor.ShowDialog();
+            if (result == DialogResult.Yes && _itemsTable.Controls.Count > 0)
+            {
+                ReloadFileItems();
+            }
         }
 
         private void _aboutMenuItem_Click(object sender, EventArgs e)
@@ -102,5 +113,7 @@ namespace dokas.EncodingConverter
             }
             _aboutBox.ShowDialog();
         }
+
+        #endregion
     }
 }
