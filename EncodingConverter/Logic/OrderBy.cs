@@ -1,6 +1,6 @@
 ﻿namespace dokas.EncodingConverter.Logic
 {
-    internal enum OrderByProperties
+    internal enum OrderBy
     {
         Path,
         Name,

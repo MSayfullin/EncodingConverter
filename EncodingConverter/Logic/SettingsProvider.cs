@@ -38,7 +38,7 @@ namespace dokas.EncodingConverter.Logic
             _searchPatterns = _fileExtensionsMap.Keys.ToSearhPatterns();
         }
 
-        public static OrderByProperties OrderBy { get; set; }
+        public static OrderBy OrderBy { get; set; }
 
         public static string TextBasedExtensions { get; set; }
         public static string XmlBasedExtensions { get; set; }
@@ -60,9 +60,9 @@ namespace dokas.EncodingConverter.Logic
         {
             switch (OrderBy)
             {
-                case OrderByProperties.Path: return fileData.OrderBy(d => d.Path);
-                case OrderByProperties.Name: return fileData.OrderBy(d => d.Name);
-                case OrderByProperties.Type: return fileData.OrderBy(d => d.Extension);
+                case OrderBy.Path: return fileData.OrderBy(d => d.Path);
+                case OrderBy.Name: return fileData.OrderBy(d => d.Name);
+                case OrderBy.Type: return fileData.OrderBy(d => d.Extension);
                 default:
                     throw new NotImplementedException("It seems that newly added Order By Property is not supported everywhere.");
             }
@@ -97,7 +97,7 @@ namespace dokas.EncodingConverter.Logic
 
         private static void LoadSettings()
         {
-            OrderBy = OrderByProperties.Name;
+            OrderBy = OrderBy.Name;
 
             TextBasedExtensions = TextBasedDefaultExtensions;
             XmlBasedExtensions = XmlBasedDefaultExtensions;
@@ -110,7 +110,7 @@ namespace dokas.EncodingConverter.Logic
                 var tag = config.Root.Element(OrderByTag);
                 if (tag != null)
                 {
-                    OrderBy = (OrderByProperties)Enum.Parse(typeof(OrderByProperties), tag.Value.ToString());
+                    OrderBy = (OrderBy)Enum.Parse(typeof(OrderBy), tag.Value.ToString());
                 }
                 tag = config.Root.Element(TextBasedExtensionsTag);
                 if (tag != null)
