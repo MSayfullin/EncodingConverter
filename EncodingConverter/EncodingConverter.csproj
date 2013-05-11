@@ -85,6 +85,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsEditor.Designer.cs">
+      <DependentUpon>SettingsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TextBoxWrapper.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsEditor.resx">
+      <DependentUpon>SettingsEditor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>

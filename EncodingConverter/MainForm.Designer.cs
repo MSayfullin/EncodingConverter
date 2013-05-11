@@ -45,6 +45,7 @@
             this._encodingsComboBox = new System.Windows.Forms.ComboBox();
             this._itemsTable = new System.Windows.Forms.TableLayoutPanel();
             this._convertAllButton = new System.Windows.Forms.Button();
+            this._optionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mainLayout.SuspendLayout();
             this._menu.SuspendLayout();
             this.SuspendLayout();
@@ -120,6 +121,7 @@
             this._mainLayout.SetColumnSpan(this._menu, 4);
             this._menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._fileMenuItem,
+            this._optionsMenuItem,
             this._aboutMenuItem});
             this._menu.Location = new System.Drawing.Point(0, 0);
             this._menu.Name = "_menu";
@@ -138,7 +140,7 @@
             // _closeMenuItem
             // 
             this._closeMenuItem.Name = "_closeMenuItem";
-            this._closeMenuItem.Size = new System.Drawing.Size(103, 22);
+            this._closeMenuItem.Size = new System.Drawing.Size(152, 22);
             this._closeMenuItem.Text = "Close";
             this._closeMenuItem.Click += new System.EventHandler(this._closeMenuItem_Click);
             // 
@@ -231,6 +233,13 @@
             this._convertAllButton.UseVisualStyleBackColor = true;
             this._convertAllButton.Click += new System.EventHandler(this._convertAllButton_Click);
             // 
+            // _optionsMenuItem
+            // 
+            this._optionsMenuItem.Name = "_optionsMenuItem";
+            this._optionsMenuItem.Size = new System.Drawing.Size(61, 20);
+            this._optionsMenuItem.Text = "Options";
+            this._optionsMenuItem.Click += new System.EventHandler(this._optionsMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +278,7 @@
         private System.Windows.Forms.Label _outputEncodingLabel;
         private System.Windows.Forms.ComboBox _encodingsComboBox;
         private System.Windows.Forms.Button _convertAllButton;
+        private System.Windows.Forms.ToolStripMenuItem _optionsMenuItem;
     }
 }
 
