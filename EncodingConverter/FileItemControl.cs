@@ -7,7 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 using dokas.EncodingConverter.Exceptions;
 using dokas.EncodingConverter.Logic;
-using dokas.FluentStrings;
 
 namespace dokas.EncodingConverter
 {
@@ -56,7 +55,7 @@ namespace dokas.EncodingConverter
             _fileData = fileData;
             _encodingTo = to;
 
-            _fileNameLink.Text = fileData.Name.TruncateTo(70).WithEllipsis();
+            _fileNameLink.Text = fileData.Name;
             _toLink.Text = _encodingTo.EncodingName;
 
             _encodingFrom = await _encodingManager.Resolve(fileData.Path);

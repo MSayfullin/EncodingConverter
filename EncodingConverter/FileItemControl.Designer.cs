@@ -44,11 +44,13 @@
             // 
             // _fileNameLink
             // 
-            this._fileNameLink.AutoSize = true;
+            this._fileNameLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._fileNameLink.AutoEllipsis = true;
             this._fileNameLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._fileNameLink.Location = new System.Drawing.Point(3, 3);
             this._fileNameLink.Name = "_fileNameLink";
-            this._fileNameLink.Size = new System.Drawing.Size(81, 16);
+            this._fileNameLink.Size = new System.Drawing.Size(291, 16);
             this._fileNameLink.TabIndex = 0;
             this._fileNameLink.TabStop = true;
             this._fileNameLink.Text = "FILE_NAME";
