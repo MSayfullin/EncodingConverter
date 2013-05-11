@@ -79,10 +79,15 @@ namespace dokas.EncodingConverter
 
         private void _convertAllButton_Click(object sender, EventArgs e)
         {
+            int count = 0;
             foreach (var control in _itemsTable.Controls.OfType<FileItemControl>())
             {
-                control.Convert();
+                if (control.Convert())
+                {
+                    count++;
+                }
             }
+            MessageBox.Show(count + " files were converted.", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #region Menu

@@ -75,7 +75,7 @@ namespace dokas.EncodingConverter
             }
         }
 
-        public void Convert()
+        public bool Convert()
         {
             if (this.IsConvertable && _excludeModeOff)
             {
@@ -87,7 +87,12 @@ namespace dokas.EncodingConverter
                 {
                     control.Enabled = false;
                 }
+                // it is NOT consistent now
+                // and will prevent from erroneous double converting also
+                _encodingFrom = null;
+                return true;
             }
+            return false;
         }
 
 
