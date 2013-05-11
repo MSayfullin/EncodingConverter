@@ -168,7 +168,7 @@ namespace dokas.EncodingConverter
             }
             catch (Win32Exception ex)
             {
-                throw new RecoverableException("File cannot be opened. Something is wrong in environment: " + ex.Message, ex);
+                throw new RecoverableException("File cannot be opened. Something is wrong with environment: " + ex.Message, ex);
             }
         }
 

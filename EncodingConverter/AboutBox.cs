@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using dokas.EncodingConverter.Exceptions;
 using dokas.FluentStrings;
 
 namespace dokas.EncodingConverter
@@ -19,10 +22,10 @@ namespace dokas.EncodingConverter
             _attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(false).ToDictionary(a => a.GetType());
 
             this.Text = "About " + AssemblyTitle;
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = "Version " + AssemblyVersion;
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            _productNameLabel.Text = AssemblyProduct;
+            _versionLabel.Text = "Version " + AssemblyVersion;
+            _copyrightLabel.Text = AssemblyCopyright;
+            _descriptionLabel.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -79,6 +82,42 @@ namespace dokas.EncodingConverter
             {
                 var attribute = Get<AssemblyCopyrightAttribute>();
                 return attribute != null ? attribute.Copyright : String.Empty;
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        private void _charDetLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                try
+                {
+                    Process.Start("http://code.google.com/p/chardetsharp/");
+                }
+                catch (Win32Exception ex)
+                {
+                    throw new RecoverableException(
+                        "CharDetSharp project website cannot be opened. Something is wrong with environment: " + ex.Message, ex);
+                }
+            }
+        }
+
+        private void _charDetLicenseLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                try
+                {
+                    Process.Start("http://www.mozilla.org/MPL/");
+                }
+                catch (Win32Exception ex)
+                {
+                    throw new RecoverableException(
+                        "Mozilla Public License website cannot be opened. Something is wrong with environment: " + ex.Message, ex);
+                }
             }
         }
 
