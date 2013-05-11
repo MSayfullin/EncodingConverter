@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this._openFolder = new System.Windows.Forms.FolderBrowserDialog();
             this._sourceFolderPath = new System.Windows.Forms.TextBox();
             this._openSourceFolderDialog = new System.Windows.Forms.Button();
@@ -236,10 +237,11 @@
             this.ClientSize = new System.Drawing.Size(584, 661);
             this.Controls.Add(this._mainLayout);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this._menu;
             this.MinimumSize = new System.Drawing.Size(600, 700);
             this.Name = "MainForm";
-            this.Text = "Encoder";
+            this.Text = "Encoding Converter";
             this._mainLayout.ResumeLayout(false);
             this._mainLayout.PerformLayout();
             this._menu.ResumeLayout(false);
