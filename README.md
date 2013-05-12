@@ -14,6 +14,9 @@ Encoding is resolved by [C# port of the Mozilla CharDet Character Set Detector](
  * There are 1000 files limit for loading at the same time (fix is on the way).
  * CharDet is not 100% good at guessing file encoding. Let's say it is approximately 40%.
 
+## Download
+[v1.0](https://encodingconverter.codeplex.com/downloads/get/679223)
+
 ## Licenses
 [The MIT License (MIT)](https://github.com/MSayfullin/EncodingConverter/blob/master/LICENSE)
 
