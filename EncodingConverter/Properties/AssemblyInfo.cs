@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Encoding Converter")]
-[assembly: AssemblyDescription("File text encoding analyzer and converter.")]
+[assembly: AssemblyDescription("Text files encoding analyzer and converter.")]
 [assembly: AssemblyCompany("Marsel Sayfullin")]
 [assembly: AssemblyProduct("doka's Encoding Converter")]
 [assembly: AssemblyCopyright("Copyright © 2013 - Marsel Sayfullin")]
