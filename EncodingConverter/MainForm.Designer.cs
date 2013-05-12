@@ -37,6 +37,7 @@
             this._menu = new System.Windows.Forms.MenuStrip();
             this._fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._closeMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._optionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._sourceFolderLabel = new System.Windows.Forms.Label();
             this._destinationFolderLabel = new System.Windows.Forms.Label();
@@ -45,7 +46,6 @@
             this._encodingsComboBox = new System.Windows.Forms.ComboBox();
             this._itemsTable = new System.Windows.Forms.TableLayoutPanel();
             this._convertAllButton = new System.Windows.Forms.Button();
-            this._optionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._mainLayout.SuspendLayout();
             this._menu.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             // 
             this._sourceFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this._sourceFolderPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this._sourceFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this._sourceFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
             this._mainLayout.SetColumnSpan(this._sourceFolderPath, 2);
             this._sourceFolderPath.Location = new System.Drawing.Point(107, 33);
             this._sourceFolderPath.Name = "_sourceFolderPath";
@@ -140,9 +140,16 @@
             // _closeMenuItem
             // 
             this._closeMenuItem.Name = "_closeMenuItem";
-            this._closeMenuItem.Size = new System.Drawing.Size(152, 22);
+            this._closeMenuItem.Size = new System.Drawing.Size(103, 22);
             this._closeMenuItem.Text = "Close";
             this._closeMenuItem.Click += new System.EventHandler(this._closeMenuItem_Click);
+            // 
+            // _optionsMenuItem
+            // 
+            this._optionsMenuItem.Name = "_optionsMenuItem";
+            this._optionsMenuItem.Size = new System.Drawing.Size(61, 20);
+            this._optionsMenuItem.Text = "Options";
+            this._optionsMenuItem.Click += new System.EventHandler(this._optionsMenuItem_Click);
             // 
             // _aboutMenuItem
             // 
@@ -177,7 +184,7 @@
             // 
             this._destinationFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this._destinationFolderPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this._destinationFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
+            this._destinationFolderPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
             this._mainLayout.SetColumnSpan(this._destinationFolderPath, 2);
             this._destinationFolderPath.Location = new System.Drawing.Point(107, 59);
             this._destinationFolderPath.Name = "_destinationFolderPath";
@@ -232,13 +239,6 @@
             this._convertAllButton.Text = "Convert All";
             this._convertAllButton.UseVisualStyleBackColor = true;
             this._convertAllButton.Click += new System.EventHandler(this._convertAllButton_Click);
-            // 
-            // _optionsMenuItem
-            // 
-            this._optionsMenuItem.Name = "_optionsMenuItem";
-            this._optionsMenuItem.Size = new System.Drawing.Size(61, 20);
-            this._optionsMenuItem.Text = "Options";
-            this._optionsMenuItem.Click += new System.EventHandler(this._optionsMenuItem_Click);
             // 
             // MainForm
             // 
