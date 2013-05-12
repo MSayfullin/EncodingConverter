@@ -40,14 +40,24 @@ namespace dokas.EncodingConverter
 
             int i = 0;
             var to = (Encoding)_encodingsComboBox.SelectedItem;
-            foreach (var fileData in _fileManager.GetFilePaths().OrderBySettings())
+            var fileItems = _fileManager.GetFilePaths().OrderBySettings().ToArray();
+            if (fileItems.Length <= 1000)
             {
-                var control = new FileItemControl(_encodingManager, _encodingSelector) { Dock = DockStyle.Fill };
-                control.Resolve(fileData, to);
-                _itemsTable.SuspendLayout();
-                _itemsTable.Controls.Add(control, 1, i++);
-                _itemsTable.ResumeLayout(true);
-                Application.DoEvents();
+                foreach (var fileData in fileItems)
+                {
+                    var control = new FileItemControl(_encodingManager, _encodingSelector) { Dock = DockStyle.Fill };
+                    control.Resolve(fileData, to);
+                    _itemsTable.SuspendLayout();
+                    _itemsTable.Controls.Add(control, 1, i++);
+                    _itemsTable.ResumeLayout(true);
+                    Application.DoEvents();
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    "There are {0} files in selected folder.{1}For now limit is 1000 files. Sorry.".Format(fileItems.Length, Environment.NewLine),
+                    "Too many files", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
