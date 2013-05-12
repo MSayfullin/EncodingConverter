@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using dokas.EncodingConverter.Logic;
+using dokas.FluentStrings;
 
 namespace dokas.EncodingConverter
 {
@@ -47,6 +48,16 @@ namespace dokas.EncodingConverter
                 _itemsTable.Controls.Add(control, 1, i++);
                 _itemsTable.ResumeLayout(true);
                 Application.DoEvents();
+            }
+        }
+
+        private void _sourceFolderPath_Leave(object sender, EventArgs e)
+        {
+            if (!_sourceFolderPath.Text.IsEmpty().OrWhiteSpace())
+            {
+                _fileManager.SetDestinationPath();
+
+                ReloadFileItems();
             }
         }
 

@@ -64,6 +64,7 @@
             this._sourceFolderPath.Name = "_sourceFolderPath";
             this._sourceFolderPath.Size = new System.Drawing.Size(432, 20);
             this._sourceFolderPath.TabIndex = 1;
+            this._sourceFolderPath.Leave += new System.EventHandler(this._sourceFolderPath_Leave);
             // 
             // _openSourceFolderDialog
             // 
